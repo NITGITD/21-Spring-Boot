@@ -31,5 +31,6 @@ public class WishMessageController {
 	}
 	public void display() {
 		System.out.println("Hello");
+		//changes for HIS -134
 	}
 }
