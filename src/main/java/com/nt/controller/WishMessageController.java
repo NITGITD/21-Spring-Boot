@@ -14,7 +14,7 @@ public class WishMessageController {
   @Autowired
 	private IWishMessageService service;
 	@RequestMapping("/")
-	public String showHomePage() {
+	public String showHomePage() { 
 		return "welcome";
 	}
 	@RequestMapping("/wish")
@@ -28,5 +28,8 @@ public class WishMessageController {
 	public String showContact() {
 				
 		return "ContactUs";
+	}
+	public void display() {
+		System.out.println("Hello");
 	}
 }
