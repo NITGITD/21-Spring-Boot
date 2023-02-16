@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+                           http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security-5.6.xsd">
+	<security:http use-expressions="true">
+		<security:intercept-url pattern="/"
+			access="permitAll" />
+		<security:intercept-url pattern="/wish"
+			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/contact"
+			access="hasRole('ROLE_AGENT')" />
+		<!-- <security:http-basic /> -->
+		<security:form-login />
+		<security:access-denied-handler
+			error-page="/access_denied.jsp" />
+		<security:session-management>
+			<security:concurrency-control
+				error-if-maximum-exceeded="true" max-sessions="2" />
+		</security:session-management>
+		<security:logout />
+		<security:remember-me />
+
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="hkDs"
+				users-by-username-query="SELECT UNAME,PWD,STATUS FROM USERS WHERE UNAME=?"
+				authorities-by-username-query="SELECT UNAME,ROLE FROM USERS_ROLES WHERE UNAME=?" />
+
+		</security:authentication-provider>
+		<!-- <security:authentication-provider> <security:user-service properties="classpath:com/nt/common/security.properties"/> 
+			</security:authentication-provider> -->		<!-- <security:authentication-provider> <security:user-service> <security:user 
+			name="raja" password="{noop}rani" authorities="ROLE_ADMIN"/> <security:user 
+			name="ramesh" password="{noop}delhi" authorities="ROLE_AGENT" /> <security:user 
+			name="suresh" password="{noop}hyd" authorities="ROLE_AGENT,ROLE_ADMIN" /> 
+			<security:user name="jani" password="{noop}begum" authorities="ROLE_VISITOR" 
+			/> </security:user-service> </security:authentication-provider> -->
+	</security:authentication-manager>
+
+</beans>
+  
