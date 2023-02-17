@@ -2,7 +2,7 @@ package com.nt.controller;
 
 public class ClassA {
 	int a=10;
-       Map<String,Object> cache= new HashMap<String,Object>();
+       System.out.println("Hello");
 	public void start() {
 		// changes for HIS-301
 		System.out.println("Hello");
